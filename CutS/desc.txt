@@ -1,0 +1,30 @@
+
+genero = dados.groupby('genre').apply(pd.DataFrame.sample, frac=1)
+
+action = genero[genero.genre=='Action']
+adventure = genero[genero.genre=='Adventure']
+comedy = genero[genero.genre=='Comedy']
+drama= genero[genero.genre=='Drama']
+horror = genero[genero.genre=='Horror']
+
+
+amostra = action.nlargest(250, ['Tamanho']) 
+amostra = pd.concat([amostra, adventure.nlargest(250, ['Tamanho'])], ignore_index=True)
+amostra = pd.concat([amostra, comedy.nlargest(250, ['Tamanho'])], ignore_index=True)
+amostra = pd.concat([amostra, drama.nlargest(250, ['Tamanho'])], ignore_index=True)
+amostra = pd.concat([amostra, horror.nlargest(250, ['Tamanho'])], ignore_index=True)
+amostra
+
+________________________________________________________________________________________________
+
+genero = amostra.groupby('genre').apply(pd.DataFrame.sample, frac=1)
+
+horror = genero[genero.genre=='Horror']
+
+janela = plt.figure(figsize=(4,4))
+histograma= janela.add_axes([0,0,1,1])
+histograma.hist(horror['Tamanho'])
+
+-----------------------------------------------------------------------------------------------------
+genero11 = dados.groupby('genre').apply(pd.DataFrame.sample, frac=1).iloc[:, 1:7]
+genero11
